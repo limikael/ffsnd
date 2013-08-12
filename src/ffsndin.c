@@ -207,18 +207,6 @@ void ffsndin_seek(FFSNDIN *pragmasound, size_t frames) {
 }
 
 /**
- * Get number of frames.
- */
-size_t ffsndin_get_num_frames(FFSNDIN *pragmasound) {
-	long long d=pragmasound->format_context->duration;
-	long long e=44100*d;
-	long long ret=e/AV_TIME_BASE;
-
-//	TRACE("duration: %d\n",ret);
-	return ret;
-}
-
-/**
  * At eof?
  */
 int ffsndin_eof(FFSNDIN *pragmasound) {
@@ -284,6 +272,18 @@ FFSNDIN *ffsndin_open(const char *fn) {
 
 	return sound;
 //	fail("reached");
+}
+
+/**
+ * Get number of frames.
+ */
+size_t ffsndin_get_num_frames(FFSNDIN *ffsndin) {
+        long long d=ffsndin->format_context->duration;
+        long long e=44100*d;
+        long long ret=e/AV_TIME_BASE;
+
+//      TRACE("duration: %d\n",ret);
+        return ret;
 }
 
 /**
